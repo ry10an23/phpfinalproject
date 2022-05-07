@@ -35,11 +35,11 @@
                 </div>
                 <div class="modal-body">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                    First Name: <input type="text" name="fname" placeholder="First Name" require><br/>
-                    Last Name: <input type="text" name="lname" placeholder="Last Name" require><br/>
-                    User Name: <input type="text" name="uname" placeholder="User Name" require><br/>
-                    Email Address: <input type="email" name="email" placeholder="Email Address" require><br/>
-                    Password: <input type="password" name="password" placeholder="Password" require><br/>
+                    First Name: <input type="text" name="fname" placeholder="First Name" required><br/>
+                    Last Name: <input type="text" name="lname" placeholder="Last Name" required><br/>
+                    User Name: <input type="text" name="uname" placeholder="User Name" required><br/>
+                    Email Address: <input type="email" name="email" placeholder="Email Address" required><br/>
+                    Password: <input type="password" name="password" placeholder="Password" required><br/>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Register</button>
@@ -63,7 +63,7 @@
             $email = $_POST['email'];
             $password = $_POST['password'];
     
-            $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname'=NOT NULL, '$lname', '$uname', '$email', '$password')";
+            $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname', '$lname', '$uname', '$email', '$password')";
     
             if($db_travel->query($insertQuery) === true){
                 echo "<h2>Your information was registered successfully</h2>";
