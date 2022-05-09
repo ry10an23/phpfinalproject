@@ -1,12 +1,19 @@
 <?php
     include('config.php');
+    //SHOW THE ERROR MESSAGE
     $error = [];
+    $uname = "";
+    $password = "";
     if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
-        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+        $uname = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
-        if($username === "" || $password === ""){
+        if($uname === "" || $password === ""){
             $error['login'] = "blank";
         }
+    }
+
+    function specialChars($value) {
+        return htmlspecialchars($value, ENT_QUOTES);
     }
 ?>
 
@@ -25,11 +32,11 @@
 <body>
     <h1>WELCOME TO OUR WEBSITE</h1>
     <form action="" method="POST">
-        <input type="text" name="username" placeholder="YOUR USERNAME"><br/>
+        <input type="text" name="username" placeholder="YOUR USERNAME" value="<?php echo specialChars($uname); ?>"><br/>
         <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
         <p style="color: red;">Please enter your username</p>
         <?php endif;?>
-        <input type="password" name="password" placeholder="YOUR PASSWORD"><br/>
+        <input type="password" name="password" placeholder="YOUR PASSWORD" value="<?php echo specialChars($password); ?>"><br/>
         <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
         <p style="color: red;">Please enter your password</p>
         <?php endif;?>
