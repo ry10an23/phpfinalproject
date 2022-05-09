@@ -55,9 +55,11 @@
         $lname = $_POST['lname'];
         $uname = $_POST['uname'];
         $email = $_POST['email'];
+        $salt = time();
         $password = $_POST['pass'];
+        $hashedPassword = password_hash($password.$salt, PASSWORD_DEFAULT);
 
-        $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname', '$lname', '$uname', '$email', '$password')";
+        $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password, Salt) VALUES('$fname', '$lname', '$uname', '$email', '$hashedPassword', '$salt')";
 
         if($db_travel->query($insertQuery) === true){
             header('Location: login.php');
