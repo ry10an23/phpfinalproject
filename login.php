@@ -1,5 +1,6 @@
 <?php
-    include('config.php');
+    session_start();
+    // include('config.php');
     //SHOW THE ERROR MESSAGE
     $error = [];
     $uname = "";
@@ -23,10 +24,20 @@
                 die($db_travel->error);
             }
 
-            $insertQuery->bind_result($id, $username, $password);
+            $insertQuery->bind_result($id, $username, $hash);
             $insertQuery->fetch();
 
-            var_dump($id, $username, $password);
+            var_dump($hash, $password);
+
+            if(password_verify($password, $hash)){
+                // session_regenerate_id();
+                // $_SESSION['id'] = $id;
+                // $_SESSION['username'] = $username;
+                // header('Location: main.php');
+                // exit();
+            } else {
+                $error['login'] = 'failed';
+            }
         }
     }
 
@@ -51,13 +62,17 @@
     <h1>WELCOME TO OUR WEBSITE</h1>
     <form action="" method="POST">
         <input type="text" name="username" placeholder="YOUR USERNAME" value="<?php echo specialChars($uname); ?>"><br/>
-        <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
-        <p style="color: red;">Please enter your username</p>
-        <?php endif;?>
+            <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+            <p style="color: red;">Please enter your username</p>
+            <?php endif;?>
         <input type="password" name="password" placeholder="YOUR PASSWORD" value="<?php echo specialChars($password); ?>"><br/>
-        <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
-        <p style="color: red;">Please enter your password</p>
-        <?php endif;?>
+            <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+            <p  class="error" style="color: red;">Please enter your password</p>
+            <?php endif;?>
+            
+            <?php if(isset($error['login']) && $error['login'] === 'failed'): ?>
+            <p class="error" style="color: red;">It's wrong password. Please try it again</p>
+            <?php endif;?>
         <button type="submit" class="btn btn-success" name="login">LOGIN</button>
         <a href="register.php">Please register if you are not yet a membership</a>
     </form>
