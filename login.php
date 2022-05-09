@@ -9,6 +9,24 @@
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
         if($uname === "" || $password === ""){
             $error['login'] = "blank";
+        } else {
+            //LOGIN CHECK
+            $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
+            $insertQuery = $db_travel->prepare('SELECT id, Username, Password FROM users_tb WHERE Username=?');
+            if(!$insertQuery){
+                die($db_travel->error);
+            }
+
+            $insertQuery->bind_param('s', $uname);
+            $success = $insertQuery->execute();
+            if(!$success) {
+                die($db_travel->error);
+            }
+
+            $insertQuery->bind_result($id, $username, $password);
+            $insertQuery->fetch();
+
+            var_dump($id, $username, $password);
         }
     }
 
