@@ -1,10 +1,12 @@
 <?php
     include('config.php');
-
+    $error = [];
     if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
-
+        if($username === "" || $password === ""){
+            $error['login'] = "blank";
+        }
     }
 ?>
 
@@ -24,7 +26,13 @@
     <h1>WELCOME TO OUR WEBSITE</h1>
     <form action="" method="POST">
         <input type="text" name="username" placeholder="YOUR USERNAME"><br/>
+        <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+        <p style="color: red;">Please enter your username</p>
+        <?php endif;?>
         <input type="password" name="password" placeholder="YOUR PASSWORD"><br/>
+        <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+        <p style="color: red;">Please enter your password</p>
+        <?php endif;?>
         <button type="submit" class="btn btn-success" name="login">LOGIN</button>
         <a href="register.php">Please register if you are not yet a membership</a>
     </form>
