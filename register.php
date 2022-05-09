@@ -17,7 +17,7 @@
         return htmlspecialchars($value, ENT_QUOTES);
     }
 
-    // TO CHECK THE CONTENTS INSEDE FORM //
+    // TO CHECK THE CONTENTS INSIDE FORM //
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $form['fname'] = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_SPECIAL_CHARS);
         if($form['fname'] === ''){
@@ -60,7 +60,7 @@
         $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname', '$lname', '$uname', '$email', '$password')";
 
         if($db_travel->query($insertQuery) === true){
-            echo "<h2>Your information was registered successfully</h2>";
+            header('Location: login.php');
         } else{
             echo "<h2>Something went wrong....</h2>".$db_travel->error;
         }
