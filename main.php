@@ -32,24 +32,23 @@
     </div>
 
     <!-- intro end-->
-    <form method="POST" action="<?php
-    echo $_SERVER['PHP_SELF']?>">
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']?>">
         <ul class="reservation">
             <li>
                 <h3>Departure</h3>
                 <select name="departure">
-                    <option value="vancouver">Vancouver</option>
+                    <option value="Vancouver">Vancouver</option>
                 </select>
             </li>
             <li>
                 <h3>Arrival</h3>
                 <select name="arrival">
-                    <option value="Japan">Japan</option>
-                    <option value="Korea">Korea</option>
-                    <option value="Canada">Canada</option>
-                    <option value="US">US</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Frence">Frence</option>
+                    <option value="Tokyo">Tokyo</option>
+                    <option value="Seoul">Seoul</option>
+                    <option value="Toronto">Toronto</option>
+                    <option value="Newyork">Newyork</option>
+                    <option value="Paris">Paris</option>
+                    <option value="Madrid">Madrid</option>
                 </select>
             </li>
             <li>
@@ -63,53 +62,85 @@
             </li>
             <li>
                 <h3>Person</h3>
-                <input type="number" name="person">
+                <select name="person">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </li>
+            <li>
+                <input class="button" type="submit">
             </li>
         </ul>
-        <input type="submit">
     </form>
 
     <?php
+
+        $db_travel = new mysqli($DBServer,$username,$password,$dbName);
+        if($db_travel->connect_error){
+            echo $db_travel->connect_error;
+        }
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
-            $db_travel = new mysqli($DBServer,$username,$password,$dbName);
-            if($db_travel->connect_error){
-                echo $db_travel->connect_error;
+            if(isset($_POST['arrival'])){
+                $arrival = $_POST['arrival'];
+                $departure = $_POST['departure'];
+                $date = $_POST['date'];
+                $person = $_POST['person'];
+                
+            
+                $selectQuery = "SELECT * FROM country_tb WHERE Country='$arrival'";
+                $result = $db_travel->query($selectQuery);
+
+                if($result->num_rows>0){
+                    while($row = $result->fetch_assoc()){
+                       //  echo var_dump($row['Stock']);
+                        if ($person <= $row['Stock']) {
+                            echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
+                            echo 'Price is : $'. $row['price'];
+                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['price'].'")'."> Save It</button><br/>";
+                            echo "<form action='' method='POST'>
+                                   <input type='hidden' name='person' value=".$person.">
+                                   <input type='hidden' name='destination' value=".$arrival.">
+                                   <button name='countryId' value=".$row['id'].">Book Flight</button>
+                                   </form>";
+                        } else  {
+                           echo 'No available';
+                        }
+                    }
+                }  else{
+                    echo "no";
+                }
             }
 
-            $arrival = $_POST['arrival'];
-            $date = $_POST['date'];
-            $person = $_POST['person'];
-        
+            if(isset($_POST['countryId'])){
+                $countryId = $_POST['countryId'];
+                $arrival = $_POST['destination'];
+                $person = $_POST['person'];
 
-            $selectQuery = "SELECT * FROM country_tb WHERE country='$arrival'" ;
+                $book_ticketQuery = "UPDATE country_tb SET Stock = Stock - $person WHERE id = $countryId";
+                $book = $db_travel->query($book_ticketQuery);
+                echo "Your Flight to $arrival for $person person's booking sucessfully";
+            }
             
-            
-
-            $result = $db_travel->query($selectQuery);
-            
-            
-             if($result->num_rows>0){
-                 while($row = $result->fetch_assoc()){
-                    //  echo var_dump($row['Stock']);
-                     if ($person <= $row['Stock']) {
-                         echo 'Stock availabe: '. $row['Stock'];
-
-                     } else {
-                         echo 'No available';
-                     }
-                 }
-             }else{
-               
-             }
             $db_travel->close();
-            
-            
-
         }
-
     ?>
-
 </body>
+<script>
+
+// Show the result another window.
+function SaveIt(val, val2, val3)
+{
+    var myWindow = window.open("", "MsgWindow", "width=300,height=300");
+    myWindow.document.write(
+        '<table><tr>' + val + '</tr>'
+    );
+    myWindow.document.write(
+        '<tr>' + val2+ val3 + '</tr></table>'
+    );
+}
+</script>
 
 </html>
