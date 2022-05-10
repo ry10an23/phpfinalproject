@@ -130,7 +130,7 @@
 </body>
 <script>
 
-// Show the result another window.
+// Show the result on another window.
 function SaveIt(val, val2, val3)
 {
     var myWindow = window.open("", "MsgWindow", "width=300,height=300");
