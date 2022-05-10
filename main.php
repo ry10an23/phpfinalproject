@@ -37,7 +37,7 @@
             <li>
                 <h3>Departure</h3>
                 <select name="departure">
-                    <option value="vancouver">Vancouver</option>
+                    <option value="Vancouver">Vancouver</option>
                 </select>
             </li>
             <li>
@@ -62,10 +62,17 @@
             </li>
             <li>
                 <h3>Person</h3>
-                <input type="number" name="person">
+                <select name="person">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </li>
+            <li>
+                <input class="button" type="submit">
             </li>
         </ul>
-        <input type="submit">
     </form>
 
     <?php
@@ -77,8 +84,10 @@
             }
 
             $arrival = $_POST['arrival'];
+            $departure = $_POST['departure'];
             $date = $_POST['date'];
             $person = $_POST['person'];
+            
         
             $selectQuery = "SELECT * FROM country_tb WHERE Country='$arrival'";
             $result = $db_travel->query($selectQuery);
@@ -87,8 +96,9 @@
                  while($row = $result->fetch_assoc()){
                     //  echo var_dump($row['Stock']);
                      if ($person <= $row['Stock']) {
-                         echo 'Stock available: '. $row['Stock'];
-                     } else {
+                         echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
+                         echo 'Price is : $'. $row['price'];
+                     } else  {
                         echo 'No available';
                      }
                  }
