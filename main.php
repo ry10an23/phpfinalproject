@@ -32,8 +32,7 @@
     </div>
 
     <!-- intro end-->
-    <form method="POST" action="<?php
-    echo $_SERVER['PHP_SELF']?>">
+    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']?>">
         <ul class="reservation">
             <li>
                 <h3>Departure</h3>
@@ -44,12 +43,12 @@
             <li>
                 <h3>Arrival</h3>
                 <select name="arrival">
-                    <option value="Japan">Japan</option>
-                    <option value="Korea">Korea</option>
-                    <option value="Canada">Canada</option>
-                    <option value="US">US</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Frence">Frence</option>
+                    <option value="Tokyo">Tokyo</option>
+                    <option value="Seoul">Seoul</option>
+                    <option value="Toronto">Toronto</option>
+                    <option value="Newyork">Newyork</option>
+                    <option value="Paris">Paris</option>
+                    <option value="Madrid">Madrid</option>
                 </select>
             </li>
             <li>
@@ -81,31 +80,23 @@
             $date = $_POST['date'];
             $person = $_POST['person'];
         
-
-            $selectQuery = "SELECT * FROM country_tb WHERE country='$arrival'" ;
-            
-            
-
+            $selectQuery = "SELECT * FROM country_tb WHERE Country='$arrival'";
             $result = $db_travel->query($selectQuery);
-            
             
              if($result->num_rows>0){
                  while($row = $result->fetch_assoc()){
                     //  echo var_dump($row['Stock']);
                      if ($person <= $row['Stock']) {
-                         echo 'Stock availabe: '. $row['Stock'];
-
+                         echo 'Stock available: '. $row['Stock'];
                      } else {
-                         echo 'No available';
+                        echo 'No available';
                      }
                  }
-             }else{
-               
+             }  else{
+                 echo "no";
              }
             $dbcon->close();
             
-            
-
         }
 
     ?>
