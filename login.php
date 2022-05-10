@@ -1,6 +1,51 @@
 <?php
-    include('config.php');
+    session_start();
+    // include('config.php');
+    //SHOW THE ERROR MESSAGE
+    $error = [];
+    $uname = "";
+    $password = "";
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+        $uname = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+        if($uname === "" || $password === ""){
+            $error['login'] = "blank";
+        } else {
+            //LOGIN CHECK
+            $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
+            $insertQuery = $db_travel->prepare('SELECT id, Username, Password FROM users_tb WHERE Username=?');
+            if(!$insertQuery){
+                die($db_travel->error);
+            }
+
+            $insertQuery->bind_param('s', $uname);
+            $success = $insertQuery->execute();
+            if(!$success) {
+                die($db_travel->error);
+            }
+
+            $insertQuery->bind_result($id, $username, $hash);
+            $insertQuery->fetch();
+
+            var_dump($hash, $password);
+
+            if(password_verify($password, $hash)){
+                // session_regenerate_id();
+                // $_SESSION['id'] = $id;
+                // $_SESSION['username'] = $username;
+                // header('Location: main.php');
+                // exit();
+            } else {
+                $error['login'] = 'failed';
+            }
+        }
+    }
+
+    function specialChars($value) {
+        return htmlspecialchars($value, ENT_QUOTES);
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,64 +60,23 @@
 </head>
 <body>
     <h1>WELCOME TO OUR WEBSITE</h1>
-    <form action="main.php" method="POST">
-        <input type="text" name="uname" placeholder="YOUR USERNAME"><br/>
-        <input type="password" name="password" placeholder="YOUR PASSWORD"><br/>
-        <button type="submit" class="btn btn-success">LOGIN</button>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Become our membership
-        </button>
+    <form action="" method="POST">
+        <input type="text" name="username" placeholder="YOUR USERNAME" value="<?php echo specialChars($uname); ?>"><br/>
+            <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+            <p style="color: red;">Please enter your username</p>
+            <?php endif;?>
+        <input type="password" name="password" placeholder="YOUR PASSWORD" value="<?php echo specialChars($password); ?>"><br/>
+            <?php if(isset($error['login']) && $error['login'] === 'blank'): ?>
+            <p  class="error" style="color: red;">Please enter your password</p>
+            <?php endif;?>
+            
+            <?php if(isset($error['login']) && $error['login'] === 'failed'): ?>
+            <p class="error" style="color: red;">It's wrong password. Please try it again</p>
+            <?php endif;?>
+        <button type="submit" class="btn btn-success" name="login">LOGIN</button>
+        <a href="register.php">Please register if you are not yet a membership</a>
     </form>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Enter your information</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                    First Name: <input type="text" name="fname" placeholder="First Name" require><br/>
-                    Last Name: <input type="text" name="lname" placeholder="Last Name" require><br/>
-                    User Name: <input type="text" name="uname" placeholder="User Name" require><br/>
-                    Email Address: <input type="email" name="email" placeholder="Email Address" require><br/>
-                    Password: <input type="password" name="password" placeholder="Password" require><br/>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                </form>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <?php
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
-            if($db_travel->connect_error){
-                echo $db_travel->connect_error;
-            }
-            $fname = $_POST['fname'];
-            $lname = $_POST['lname'];
-            $uname = $_POST['uname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-    
-            $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname'=NOT NULL, '$lname', '$uname', '$email', '$password')";
-    
-            if($db_travel->query($insertQuery) === true){
-                echo "<h2>Your information was registered successfully</h2>";
-            } else{
-                echo "<h2>Something went wrong....</h2>".$db_travel->error;
-            }
-            $db_travel->close();
-        }
-
-    ?>
 </body>
 </html>
