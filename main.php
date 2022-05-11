@@ -74,7 +74,12 @@
             </li>
         </ul>
     </form>
-
+    <script>
+        function qurantine()
+            {
+                alert('Newyork will require qurantine. Please check your itinerary before you take the flight.');
+            }
+    </script>
     <?php
 
         $db_travel = new mysqli($DBServer,$username,$password,$dbName);
@@ -143,13 +148,8 @@
                 echo "Your Flight to $arrival for $person person's booking sucessfully<br/>";
                 
                 //quratnine function
-
                 if($arrival == 'Newyork'){
-                    echo '<script> alert("test"); </script>';
-                }
-
-                if($arrival == 'Paris'){
-                    echo "<span style=color:red> $arrival is designated as a travel risck country. Please check your itinerary.</span>";
+                    echo '<script> qurantine(); </script>';
                 }
             }
             
@@ -168,15 +168,7 @@
         myWindow.document.write(
             '<tr>' + save_date+ save_price + '</tr></table>'
         );
-    }
-
-    function qurantine()
-    {
-        // if(confirm('$arrival will require qurantine. Please check your itinerary.') == true){
-        // alert("$arrival will require qurantine. Please check your itinerary.!");
-        document.write("HEllo");
-    
-    }
+    }    
 </script>
 
 </html>
