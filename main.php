@@ -1,5 +1,23 @@
 <?php
     include('config.php');
+
+    // PRICE CHANEG FUNCTION
+     // PRICE CHANEG FUNCTION
+     function priceDiscountPeople(){
+        if($_POST['person'] >= 5 && $_POST['person'] <= 7){
+          return -30;
+        } elseif ($_POST['person'] >= 8 && $_POST['person'] <= 10){
+          return -50;
+        }
+    }
+
+    function priceDiscountSeason(){
+        if ($_POST['date'] == 'Summer'){
+        return +50;
+      } elseif ($_POST['date'] == 'Winter'){
+        return -50;
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +85,13 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
                 </select>
             </li>
             <li>
@@ -102,10 +127,11 @@
                     while($row = $result->fetch_assoc()){
                        //  echo var_dump($row['Stock']);
                         if ($person <= $row['Stock']) {
+                            $finalPrice = $row['price'] * $person + priceDiscountPeople() * $person +  priceDiscountSeason() * $person;
                             echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
-                            echo 'Price is : $'. $row['price'];
+                            echo 'Price is : $'.$finalPrice;
                             // SaveIt(Notepad) button
-                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['price'].'")'."> Save It</button><br/>";
+                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$finalPrice.'","'.$person.'",)'."> Save It</button><br/>";
                             // Booking Button    
                             echo "<form action='' method='POST'>
                                    <input type='hidden' name='person' value=".$person.">
@@ -159,14 +185,12 @@
 </body>
 <script>
     // Show the result on another window.
-    function SaveIt(save_country, save_date, save_price)
+    function SaveIt(save_country, save_date, save_price, save_person)
     {
-        var myWindow = window.open("", "MsgWindow", "width=300,height=300");
+        var myWindow = window.open("", "MsgWindow", "width=500,height=300");
         myWindow.document.write(
-            '<table><tr>' + save_country + '</tr>'
-        );
-        myWindow.document.write(
-            '<tr>' + save_date+ save_price + '</tr></table>'
+            'For ' + save_person +' Person, To ' + save_country +' in ' 
+            + save_date + ' season, the price is : ' + save_price + '<br/>'
         );
     }    
 </script>
