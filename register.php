@@ -56,7 +56,7 @@
         if(!$insertQuery){
             die($db_travel->error);
         }
-        $salt = time();
+        // $salt = time();
         $password = $_POST['pass'];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $insertQuery->bind_param('sssss', $form['fname'], $form['lname'], $form['uname'], $form['email'], $hashedPassword);
