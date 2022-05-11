@@ -31,7 +31,7 @@
         if($form['uname'] === ''){
             $error['uname'] = 'blank';
         }
-        $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+        $form['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         if($form['email'] === ''){
             $error['email'] = 'blank';
         }
@@ -49,24 +49,37 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
         if($db_travel->connect_error){
-            echo $db_travel->connect_error;
+            die($db_travel->connect_error);
         }
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
-        $uname = $_POST['uname'];
-        $email = $_POST['email'];
+
+        $insertQuery = $db_travel->prepare("INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES(?, ?, ?, ?, ?)");
+        if(!$insertQuery){
+            die($db_travel->error);
+        }
         $salt = time();
         $password = $_POST['pass'];
-        $hashedPassword = password_hash($password.$salt, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $insertQuery->bind_param('sssss', $form['fname'], $form['lname'], $form['uname'], $form['email'], $hashedPassword);
 
-        $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password, Salt) VALUES('$fname', '$lname', '$uname', '$email', '$hashedPassword', '$salt')";
-
-        if($db_travel->query($insertQuery) === true){
-            header('Location: login.php');
-        } else{
-            echo "<h2>Something went wrong....</h2>".$db_travel->error;
+        $success = $insertQuery->execute();
+        if(!$success){
+            die($db_travel->error);
         }
-        $db_travel->close();
+        header('Location: login.php');
+        // $fname = $_POST['fname'];
+        // $lname = $_POST['lname'];
+        // $uname = $_POST['uname'];
+        // $email = $_POST['email'];
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname', '$lname', '$uname', '$email', '$hashedPassword')";
+
+        // if($db_travel->query($insertQuery) === true){
+
+        // } else{
+        //     echo "<h2>Something went wrong....</h2>".$db_travel->error;
+        // }
+        // $db_travel->close();
     }
 ?>
 
