@@ -99,14 +99,15 @@
                         if ($person <= $row['Stock']) {
                             echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
                             echo 'Price is : $'. $row['price'];
+                            // SaveIt(Notepad) button
                             echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['price'].'")'."> Save It</button><br/>";
-                                // SaveIt(Notepad) button
+                            // Booking Button    
                             echo "<form action='' method='POST'>
                                    <input type='hidden' name='person' value=".$person.">
                                    <input type='hidden' name='destination' value=".$arrival.">
                                    <button name='countryId' value=".$row['id'].">Book Flight</button>
                                    </form>";
-                                // Booking Button
+
                         } else  
                         {
                             //   suggest other nearest country 
@@ -138,7 +139,18 @@
 
                 $book_ticketQuery = "UPDATE country_tb SET Stock = Stock - $person WHERE id = $countryId";
                 $book = $db_travel->query($book_ticketQuery);
-                echo "Your Flight to $arrival for $person person's booking sucessfully";
+
+                echo "Your Flight to $arrival for $person person's booking sucessfully<br/>";
+                
+                //quratnine function
+
+                if($arrival == 'Newyork'){
+                    echo '<script> alert("test"); </script>';
+                }
+
+                if($arrival == 'Paris'){
+                    echo "<span style=color:red> $arrival is designated as a travel risck country. Please check your itinerary.</span>";
+                }
             }
             
             $db_travel->close();
@@ -146,18 +158,25 @@
     ?>
 </body>
 <script>
+    // Show the result on another window.
+    function SaveIt(save_country, save_date, save_price)
+    {
+        var myWindow = window.open("", "MsgWindow", "width=300,height=300");
+        myWindow.document.write(
+            '<table><tr>' + save_country + '</tr>'
+        );
+        myWindow.document.write(
+            '<tr>' + save_date+ save_price + '</tr></table>'
+        );
+    }
 
-// Show the result on another window.
-function SaveIt(val, val2, val3)
-{
-    var myWindow = window.open("", "MsgWindow", "width=300,height=300");
-    myWindow.document.write(
-        '<table><tr>' + val + '</tr>'
-    );
-    myWindow.document.write(
-        '<tr>' + val2+ val3 + '</tr></table>'
-    );
-}
+    function qurantine()
+    {
+        // if(confirm('$arrival will require qurantine. Please check your itinerary.') == true){
+        // alert("$arrival will require qurantine. Please check your itinerary.!");
+        document.write("HEllo");
+    
+    }
 </script>
 
 </html>
