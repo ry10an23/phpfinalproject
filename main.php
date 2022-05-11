@@ -91,6 +91,7 @@
         
             $selectQuery = "SELECT * FROM country_tb WHERE Country='$arrival'";
             $result = $db_travel->query($selectQuery);
+
             
              if($result->num_rows>0){
                  while($row = $result->fetch_assoc()){
@@ -100,13 +101,24 @@
                          echo 'Price is : $'. $row['price'];
                      } else  {
                         echo 'No available';
+                        $selectQuery2 = "SELECT * FROM country_tb";
+                        $result2 = $db_travel->query($selectQuery2);
+                      
+                        if($result2->num_rows>0){
+                            while($row2 = $result2->fetch_assoc()){
+                               if($row['continent'] === $row2['continent']){
+                                   if($row['Country'] !== $row2['Country']){
+                                       echo $row2['Country'];
+                                   }
+                               }
+                            }
+                        }
                      }
                  }
              }  else{
                  echo "no";
              }
-            $dbcon->close();
-            
+            $db_travel->close();
         }
 
     ?>
