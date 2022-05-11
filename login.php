@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    // session_start();
 
     //SHOW THE ERROR MESSAGE
     $error = [];
@@ -42,10 +42,10 @@
             $selectQuery->bind_result($username, $hash);
             $selectQuery->fetch();
 
-            var_dump($hash, $password); //SHOW THE RESLUT OF HASHED PASS AND USER TYPED PASSWORD
+            var_dump($password, $hash); //SHOW THE RESLUT OF HASHED PASS AND USER TYPED PASSWORD
 
             if(password_verify($password, $hash)){ //COMPARE BETWEEN THE HASHED PASS AND PLAINTEXT PASSWORD ARE SAME OR NOT
-                echo 'Password is correct';
+                header('Location: ./main.php');
             } else {
                 $error['login'] = 'failed';
             }
