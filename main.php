@@ -116,7 +116,7 @@
                             while($row2 = $result2->fetch_assoc()){
                                if($row['continent'] === $row2['continent']){
                                    if($row['Country'] !== $row2['Country']){
-                                       echo $row2['Country'];
+                                       echo "Another option is ".$row2['Country'];
                                    }
                                }
                             }
