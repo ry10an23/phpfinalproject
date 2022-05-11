@@ -105,11 +105,26 @@
                                    <input type='hidden' name='destination' value=".$arrival.">
                                    <button name='countryId' value=".$row['id'].">Book Flight</button>
                                    </form>";
-                        } else  {
-                           echo 'No available';
+                        } else  
+                        {
+                            //   suggest other nearest country 
+                            $selectQuery2 = "SELECT * FROM country_tb";
+                            $result2 = $db_travel->query($selectQuery2);
+
+                            if($result2->num_rows>0){
+                                while($row2 = $result2->fetch_assoc()){
+                                   if($row['continent'] === $row2['continent']){
+                                       if($row['Country'] !== $row2['Country']){
+                                           echo "I'm sorry, You can't book this arrival <br/>";
+                                           echo "Another option is ".$row2['Country'];
+                                       }
+                                   }
+                                }
+                            }
                         }
                     }
-                }  else{
+                }  
+                else{
                     echo "no";
                 }
             }
