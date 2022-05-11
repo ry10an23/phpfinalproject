@@ -1,5 +1,18 @@
 <?php
     include('config.php');
+
+    // PRICE CHANEG FUNCTION
+    function priceDiscount(){
+        if($_POST['person'] >= 5 && $_POST['person'] <= 7){
+          return -30;
+        } elseif ($_POST['person'] >= 8 && $_POST['person'] <= 10){
+          return -50;
+        } elseif ($_POST['date'] == 'Summer'){
+          return +50;
+        } elseif ($_POST['date'] == 'Winter'){
+          return -50;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -105,8 +118,8 @@
                        //  echo var_dump($row['Stock']);
                         if ($person <= $row['Stock']) {
                             echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
-                            echo 'Price is : $'. $row['price'];
-                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['price'].'")'."> Save It</button><br/>";
+                            echo 'Price is : $'. $row['Price'] * $person + priceDiscount() * $person;
+                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['Price'].'")'."> Save It</button><br/>";
                                 // SaveIt(Notepad) button
                             echo "<form action='' method='POST'>
                                    <input type='hidden' name='person' value=".$person.">
