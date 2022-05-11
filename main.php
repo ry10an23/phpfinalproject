@@ -100,11 +100,13 @@
                             echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
                             echo 'Price is : $'. $row['price'];
                             echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['price'].'")'."> Save It</button><br/>";
+                                // SaveIt(Notepad) button
                             echo "<form action='' method='POST'>
                                    <input type='hidden' name='person' value=".$person.">
                                    <input type='hidden' name='destination' value=".$arrival.">
                                    <button name='countryId' value=".$row['id'].">Book Flight</button>
                                    </form>";
+                                // Booking Button
                         } else  
                         {
                             //   suggest other nearest country 
@@ -128,7 +130,7 @@
                     echo "no";
                 }
             }
-
+            // Booking function. 
             if(isset($_POST['countryId'])){
                 $countryId = $_POST['countryId'];
                 $arrival = $_POST['destination'];
