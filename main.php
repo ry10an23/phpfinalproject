@@ -67,6 +67,13 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
                 </select>
             </li>
             <li>
@@ -100,7 +107,8 @@
                          echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
                          echo 'Price is : $'. $row['price'];
                      } else  {
-                        echo 'No available';
+                       
+                        //   suggest other nearest country 
                         $selectQuery2 = "SELECT * FROM country_tb";
                         $result2 = $db_travel->query($selectQuery2);
                       
