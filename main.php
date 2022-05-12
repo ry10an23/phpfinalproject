@@ -1,5 +1,12 @@
 <?php
+    session_start();
     include('config.php');
+
+    function specialChars($value) {
+        return htmlspecialchars($value, ENT_QUOTES);
+    }
+
+    $loginUserName = $_SESSION['UserName'];
 
     // PRICE CHANEG FUNCTION
     function priceDiscountPeople(){
@@ -42,7 +49,7 @@
                 </ul>
             </div>
             <div class="intro_text">
-                <h1>Welcome to REJ Airline</h1>
+                <h1><?php echo specialChars($loginUserName); ?>, Welcome to REJ Airline</h1>
                 <h4 class="contents1">We are providing reservation system</h4>
             </div>
         </div>
