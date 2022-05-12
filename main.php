@@ -7,7 +7,7 @@
     }
 
     $loginUserName = $_SESSION['UserName'];
-
+    
     // PRICE CHANEG FUNCTION
     function priceDiscountPeople(){
         if($_POST['person'] >= 5 && $_POST['person'] <= 7){
@@ -45,7 +45,7 @@
                     <li><a href="#">HOME</a></li>
                     <li><a href="#">CART</a></li>
                     <li><a href="#">CONTACT</a></li>
-                    <li><a href="#">LOGOUT</a></li>
+                    <li><a href="./logout.php">LOGOUT</a></li>
                 </ul>
             </div>
             <div class="intro_text">
@@ -128,7 +128,7 @@
                     while($row = $result->fetch_assoc()){
                        //  echo var_dump($row['Stock']);
                         if ($person <= $row['Stock']) {
-                            echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
+                            echo '<h1>From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now</h1></br>';
                             echo 'Price is : $'. $row['Price'] * $person + priceDiscountPeople() * $person +  priceDiscountSeason() * $person;
                             echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$row['Price'].'")'."> Save It</button><br/>";
                                 // SaveIt(Notepad) button
@@ -146,7 +146,7 @@
 
                             if($result2->num_rows>0){
                                 while($row2 = $result2->fetch_assoc()){
-                                   if($row['continent'] === $row2['continent']){
+                                   if($row['Continent'] === $row2['Continent']){
                                        if($row['Country'] !== $row2['Country']){
                                            echo "I'm sorry, You can't book this arrival <br/>";
                                            echo "Another option is ".$row2['Country'];
