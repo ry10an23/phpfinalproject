@@ -30,11 +30,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"href="./style/register.css">
-    <link rel="stylesheet" type="text/css" href="./style/main.css">
+    <link rel="stylesheet" type="text/css" href="./style/register.css">
+    <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
+    <PHP>
+        <link rel="stylesheet" type="text/css" href="./style/main.css">
+</head>
+<PHP>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
@@ -157,18 +161,19 @@
                         if ($person <= $row['Stock']) {
                             $finalPrice = $row['price'] * $person + priceDiscountPeople() * $person +  priceDiscountSeason() * $person;
                             
+                            //Show the result..
                             echo '<div class="container"><div class="showResult">
-                                <h2>[ Reservation result 🎁 ]<h2>
-                                <p class="showCountry"> From
-                                <span class="departure"> '.$departure.' </span>To 
-                                <span class="arrival"></br>'.$row['Country'].'</span> 
-                                Flight</br> with '.$person. ' person</br> in '.$date.' 
-                                    ticket<p id="showPrice"> 
-                                <span class="price">Price :<span class="numOfprice"> $'.$finalPrice.'💰</span></span>
-                                </p></p></div></div>';
+                            <h2>[ Reservation result 🎁 ]<h2>
+                            <p class="showCountry"> From
+                            <span class="departure"> '.$departure.' </span>To 
+                            <span class="arrival"></br>'.$row['Country'].'</span> 
+                            Flight</br> with '.$person. ' person</br> in '.$date.' 
+                                ticket<p id="showPrice"> 
+                            <span class="price">Price :<span class="numOfprice"> $'.$finalPrice.'💰</span></span>
+                            </p></p></div></div>';
                             
                             // SaveIt(Notepad) button
-                            echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$finalPrice.'","'.$person.'",)'."> Save It</button><br/>";
+                            echo "<br/><button class='saveBtn' onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$finalPrice.'","'.$person.'",)'."> Save It</button><br/>";
                             // Booking Button    
                             // Iwill need <input type='hidden' name='userId' value=".$userId.">
                             echo "<form action='' method='POST'>
@@ -176,7 +181,7 @@
                                    <input type='hidden' name='destination' value=".$arrival.">
                                    <input type='hidden' name='date' value=".$date.">
                                    <input type='hidden' name='finalprice' value=".$finalPrice.">
-                                   <button name='countryId' value=".$row['id'].">Book Flight</button>
+                                   <button class='bookBtn' name='countryId' value=".$row['id'].">Book Flight</button>
                                    </form>";
 
                         } else  
@@ -258,5 +263,4 @@
         );
     }    
 </script>
-
 </html>
