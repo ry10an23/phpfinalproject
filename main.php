@@ -10,6 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     <title>MAIN PAGE</title>
 </head>
 
@@ -26,7 +29,7 @@
             </div>
             <div class="intro_text">
                 <h1>Welcome to REJ Airline</h1>
-                <h4 class="contents1">We are providing reservation system</h4>
+                <h4 class="contents1">Unforgettable travel experiences with a positive impact</h4>
             </div>
         </div>
     </div>
@@ -76,8 +79,8 @@
                     <option value="11">11</option>
                 </select>
             </li>
-            <li>
-                <input class="button" type="submit">
+            <li class="buttonContainer">
+                <input value="Submit" class="button" type="submit">
             </li>
         </ul>
     </form>
@@ -104,8 +107,8 @@
                  while($row = $result->fetch_assoc()){
                     //  echo var_dump($row['Stock']);
                      if ($person <= $row['Stock']) {
-                         echo 'From '.$departure.' To ' .$row['Country'].' Flight in '.$date.' ticket is available now </br>';
-                         echo 'Price is : $'. $row['price'];
+                         echo '<div class="container"><div class="showResult"><h2>[ Reservation result 🎁 ]<h2><p class="showCountry"> From<span class="departure"> '.$departure.' </span>To <span class="arrival"></br>'.$row['Country'].'</span> Flight</br> with '.$person. ' person</br> in '.$date.' 
+                         ticket</p><p id="showPrice"> <span class="price">Price :<span class="numOfprice"> $'.$row['price'].'💰</span></span></p></div></div>';
                      } else  {
                        
                         //   suggest other nearest country 
@@ -116,7 +119,7 @@
                             while($row2 = $result2->fetch_assoc()){
                                if($row['continent'] === $row2['continent']){
                                    if($row['Country'] !== $row2['Country']){
-                                       echo "Another option is ".$row2['Country'];
+                                    echo '<div class="container"><div class="suggestion"><p class="message">Sorry❗️, You can not book this arrival</p> <br/> <h2 class="suggestionMessage">How about other Country ?</h2></br><p class="country">Another option is <span class="countryword">'.$row2['Country'].'</span></P></div>';
                                    }
                                }
                             }
