@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    /* color: lightblue; */
+    background:url(../image/login_img.jpeg);
+    background-size: 150%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+form {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 30%;
+    margin: auto;
+}
+.reg-wrap{
+    width: 100%;
+    margin:auto;
+    margin-top: 7%;
+    max-width:510px;
+    min-height:510px;
+    position:relative;
+    background-size: cover;
+    background-color: rgba(255,255,255,0);
+    background-blend-mode: lighten;
+    box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.reg-form {
+    /* border: 1px solid green; */
+    width:100%;
+    height:100%;
+    position:absolute;
+    padding:50px 70px 50px 70px;
+    background:rgba(0,0,0,0.1);  
+}
+
+input {
+    width: 100%;
+    height: 40%;
+}
+
+input:hover{
+    background-color: skyblue;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.button {
+    border: none;
+    font-size: 20px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 220px;
+    padding: 10px 25px;
+    color: #313131;
+    transition: 0.3s ease-in-out;
+    font-weight: 600;
+    background: transparent;
+}
+.button :hover {
+    background: #ebfcfe;
+    color: black;
+}
+.button :before, .button :after {
+box-sizing: inherit;
+content: "";
+position: absolute;
+border: 5px solid transparent;
+width: 0;
+height: 0;
+}
+.button :before {
+top: 0;
+left: 0;
+}
+.button :after {
+bottom: 0;
+right: 0;
+}
+.button :hover:before, .button :hover:after {
+width: 100%;
+height: 100%;
+}
+.button :hover:before {
+border-top-color: #6bb6ff;
+border-right-color: #6bb6ff;
+transition: width 0.15s ease-out, height 0.15s ease-out 0.15s;
+}
+.button :hover:after {
+border-bottom-color: #6bb6ff;
+border-left-color: #6bb6ff;
+transition: border-color 0s ease-out 0.2s, width 0.15s ease-out 0.2s, height 0.15s ease-out 0.3s;
+}

@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+    /* color: lightblue; */
+    background:url(../image/login_img.jpeg);
+    background-size: 150%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+form{
+    /* border: 1px solid red; */
+    margin-top: 10%;
+    text-align: center;
+}
+
+.login-wrap{
+width: 100%;
+margin:auto;
+margin-top: 7%;
+max-width:510px;
+min-height:510px;
+position:relative;
+background-size: cover;
+background-color: rgba(255,255,255,0);
+background-blend-mode: lighten;
+box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.login-form {
+    /* border: 1px solid green; */
+    width:100%;
+    height:100%;
+    position:absolute;
+    padding:90px 70px 50px 70px;
+    background:rgba(0,0,0,0.1);  
+}
+
+input {
+    width: 80%;
+    height: 40%;
+}
+
+input:hover{
+    background-color: skyblue;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.button{
+    margin-top: 10%;
+    display: inline-block;
+    flex-direction: column;
+}
+
+button {
+    width: 100%;
+}
+
+button:hover {
+    background-color: aliceblue;
+    transition: .3s;
+}
+
+.btn-newAccount{
+    margin-top: 5%;
+}
+
+.btn-newAccount a {
+    text-decoration: none;
+    color: inherit;
+}
