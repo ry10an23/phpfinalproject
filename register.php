@@ -90,56 +90,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style/register.css">
 </head>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    body{
-        margin:0;
-        /* color: lightblue; */
-        background:url(./img/login_img.jpg);
-        background-size: 150%;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-    form {
-        /* border: 2px solid red; */
-        width: 100%;
-        height: 30%;
-        margin: auto;
-    }
-    .reg-wrap{
-        width: 100%;
-        margin:auto;
-        margin-top: 7%;
-        max-width:510px;
-        min-height:510px;
-        position:relative;
-        background-size: cover;
-        background-color: rgba(255,255,255,0);
-        background-blend-mode: lighten;
-        box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    }
-
-    .reg-form {
-        /* border: 1px solid green; */
-        width:100%;
-        height:100%;
-        position:absolute;
-        padding:50px 70px 50px 70px;
-        background:rgba(0,0,0,0.1);  
-    }
-
-    input {
-        width: 100%;
-        height: 40%;
-    }
-</style>
 <body>
     <div class="reg-wrap">
         <div class="reg-form">
@@ -168,7 +121,9 @@
                     <?php if(isset($error['pass']) && $error['pass'] ==='length'): ?>
                         <p style="color: red;">Password should be more than 8 characters</p>
                     <?php endif; ?>
-                    <button type="submit" class="btn btn-primary" name="register">Register</button>
+                    <div class="button">
+                        <button type="submit" class="button" name="register">Register</button>
+                    </div>
             </form>
         </div>
     </div>
