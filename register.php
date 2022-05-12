@@ -84,23 +84,23 @@
         <div class="reg-form">
         <h1>REGISTRATION FORM</h1>
             <form action="" method="POST">
-                First Name <span style="color: red;">* </span><input type="text" name="fname" placeholder="First Name"  value="<?php echo specialChars($form['fname']); ?>"><br/>
+                First Name <span style="color: red;">* </span><input type="text" name="fname" placeholder="First Name"  value="<?php echo specialChars($form['fname']); ?>" required><br/>
                     <?php if(isset($error['fname']) && $error['fname'] ==='blank'): ?>
                         <p style="color: red;">Please enter your First Name</p>
                     <?php endif; ?>
-                Last Name <span style="color: red;">* </span><input type="text" name="lname" placeholder="Last Name"  value="<?php echo specialChars($form['lname']); ?>"><br/>
+                Last Name <span style="color: red;">* </span><input type="text" name="lname" placeholder="Last Name"  value="<?php echo specialChars($form['lname']); ?>" required><br/>
                     <?php if(isset($error['lname']) && $error['lname'] ==='blank'): ?>
                         <p style="color: red;">Please enter your Last Name</p>
                     <?php endif; ?>
-                User Name <span style="color: red;">* </span><input type="text" name="uname" placeholder="User Name"  value="<?php echo specialChars($form['uname']); ?>"><br/>
+                User Name <span style="color: red;">* </span><input type="text" name="uname" placeholder="User Name"  value="<?php echo specialChars($form['uname']); ?>" required><br/>
                     <?php if(isset($error['uname']) && $error['uname'] ==='blank'): ?>
                         <p style="color: red;">Please enter your User Name</p>
                     <?php endif; ?>
-                Email Address <span style="color: red;">* </span><input type="email" name="email" placeholder="Email Address"  value="<?php echo specialChars($form['email']); ?>"><br/>
+                Email Address <span style="color: red;">* </span><input type="email" name="email" placeholder="Email Address"  value="<?php echo specialChars($form['email']); ?>" required><br/>
                     <?php if(isset($error['email']) && $error['email'] ==='blank'): ?>
                         <p style="color: red;">Please enter your Email Address</p>
                     <?php endif; ?>
-                Password <span style="color: red;">* </span><input type="password" name="pass" placeholder="Password" minlength="8" maxlength="20" value="<?php echo specialChars($form['pass']); ?>"><br/>
+                Password <span style="color: red;">* </span><input type="password" name="pass" placeholder="Password" minlength="8" maxlength="20" value="<?php echo specialChars($form['pass']); ?>" required><br/>
                     <?php if(isset($error['pass']) && $error['pass'] ==='blank'): ?>
                         <p style="color: red;">Please enter your Password</p>
                     <?php endif; ?>
