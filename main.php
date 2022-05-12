@@ -129,16 +129,18 @@
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
             //FIND bookingId
-            $select_booking_Id = "SELECT * FROM users_tb WHERE UserName = '$loginUserName'";
-            $bookingInfoId = $db_travel->query($select_booking_Id) or die(mysql_error());
+            if(isset($loginUserName)){
+                $bookingInfoId = $db_travel->query("SELECT * FROM users_tb WHERE UserName = '$loginUserName'") or die(mysql_error());
 
-            $selected_bookID = $bookingInfoId->fetch_array(MYSQLI_ASSOC);
-            $find_bookingId = $selected_bookID['bookingId'];
+                $selected_bookID = $bookingInfoId->fetch_array(MYSQLI_ASSOC);
+                $find_bookingId = $selected_bookID['bookingId'];
 
-            // IF the user have booking info,
-            if(isset($find_bookingId)){
-                echo "You've already made a reservation.<br/>";
+                // IF the user have booking info,
+                if(isset($find_bookingId)){
+                    echo "You've already made a reservation.<br/>";
+                }
             }
+
 
             //FIND flight ticket
             if(isset($_POST['arrival'])){
@@ -161,9 +163,9 @@
                                 <span class="departure"> '.$departure.' </span>To 
                                 <span class="arrival"></br>'.$row['Country'].'</span> 
                                 Flight</br> with '.$person. ' person</br> in '.$date.' 
-                                    ticket</p><p id="showPrice"> 
+                                    ticket<p id="showPrice"> 
                                 <span class="price">Price :<span class="numOfprice"> $'.$finalPrice.'💰</span></span>
-                                </p></div></div>';
+                                </p></p></div></div>';
                             
                             // SaveIt(Notepad) button
                             echo "<br/><button onclick=".'SaveIt("'.$row['Country'].'","'.$date.'","'.$finalPrice.'","'.$person.'",)'."> Save It</button><br/>";
@@ -219,13 +221,7 @@
                 $book = $db_travel->query($book_ticketQuery);
 
                 echo "Your Flight to $arrival for $person person's booking sucessfully<br/>";
-                
-
-                //Insert bookingId INTO user_tb Booking_info
-                $selectId_query = "SELECT * FROM users_tb";
-                $userID = $db_travel->query($selectId_query) or die(mysql_error());
-
-
+            
                 // Find Book_ID
                 $select_bookingId = "SELECT MAX(bookingId) AS bookID FROM bookingInfo_tb";
                 $booking_ID = $db_travel->query($select_bookingId) or die(mysql_error());
@@ -241,7 +237,6 @@
                 // Insert Book_ID INTO users_tb -> bookingId
                 $insert_bookingId= "UPDATE users_tb SET bookingId = $Book_ID WHERE UserName = '$username'";
                 $bookInfotoUser = $db_travel->query($insert_bookingId) or die(mysql_error());
-
 
                 //call quratnine function
                 if($arrival == 'Newyork'){

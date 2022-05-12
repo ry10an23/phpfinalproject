@@ -11,21 +11,7 @@
         if($uname === "" || $password === ""){
             $error['login'] = "blank";
         } else {
-            //LOGIN CHECK
-            // $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
-            // if($db_travel->connect_error){
-            //     die("Connection failed:".$dbCon->connect_error);
-            // }
-
-            // $insertQuery = "SELECT * FROM users_tb WHERE Username='$uname', Password='$password'";
-            // if($db_travel->query($insertQuery)===true){
-            //     echo "<h2>Password is correct";
-            // }else{
-            //     echo "<h2>Password is NOT correct";
-            // }
-            // $db_travel->close();
-            // $result = $db_travel->query($selectQuery);
-
+            
             // CONNECT TO THE DATABASE
             $db_travel = new mysqli('localhost', 'root', '' ,'travel_db');
             $selectQuery = $db_travel->prepare('SELECT UserName, Password FROM users_tb WHERE UserName=?');
@@ -42,7 +28,7 @@
             $selectQuery->bind_result($username, $hash);
             $selectQuery->fetch();
 
-            var_dump($password, $hash); //SHOW THE RESLUT OF HASHED PASS AND USER TYPED PASSWORD
+            // var_dump($password, $hash); //SHOW THE RESLUT OF HASHED PASS AND USER TYPED PASSWORD
 
             if(password_verify($password, $hash)){ //COMPARE BETWEEN THE HASHED PASS AND PLAINTEXT PASSWORD ARE SAME OR NOT
                 $_SESSION['UserName'] = $uname;

@@ -66,20 +66,6 @@
             die($db_travel->error);
         }
         header('Location: login.php');
-        // $fname = $_POST['fname'];
-        // $lname = $_POST['lname'];
-        // $uname = $_POST['uname'];
-        // $email = $_POST['email'];
-        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // $insertQuery = "INSERT INTO users_tb(FirstName, LastName, UserName, Email, Password) VALUES('$fname', '$lname', '$uname', '$email', '$hashedPassword')";
-
-        // if($db_travel->query($insertQuery) === true){
-
-        // } else{
-        //     echo "<h2>Something went wrong....</h2>".$db_travel->error;
-        // }
-        // $db_travel->close();
     }
 ?>
 
