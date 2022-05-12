@@ -68,68 +68,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login PAGE</title>
 
+    <link rel="stylesheet" href="./style/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            margin:0;
-            /* color: lightblue; */
-            background:url(./img/login_img.jpg);
-            background-size: 150%;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        a {
-            text-decoration: none;
-        }
-        h1 {
-            border: 1px solid green;
-        }
-        form{
-            border: 1px solid red;
-        }
-
-        .login-wrap{
-        width: 100%;
-        margin:auto;
-        margin-top: 7%;
-        max-width:510px;
-        min-height:510px;
-        position:relative;
-        background-size: cover;
-        background-color: rgba(255,255,255,0);
-        background-blend-mode: lighten;
-        box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-        }
-
-        .login-form {
-            border: 1px solid green;
-            width:100%;
-            height:100%;
-            position:absolute;
-            padding:90px 70px 50px 70px;
-            background:rgba(0,0,0,0.1);  
-        }
-
-        .button{
-            border: 1px solid blue;
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
+    
 </head>
 <body>
     <div class="login-wrap">
         <div class="login-form">
-            <h1>WELCOME TO OUR WEBSITE</h1>
+            <h3>WELCOME TO OUR WEBSITE</h3>
             <form action="" method="POST">
                 <label for="username">USERNAME</label>
                 <input type="text" name="username" placeholder="YOUR USERNAME" value="<?php echo specialChars($uname); ?>"><br/>
@@ -147,8 +95,8 @@
                     <p class="error" style="color: red;">It's wrong password. Please try it again</p>
                     <?php endif;?>
                 <div class="button">
-                    <button type="submit" class="btn" name="login">LOGIN</button>
-                    <button class="btn"><a href="register.php">Please register if you are not yet a membership</a></button> 
+                    <button type="submit" class="btn btn-login" name="login">LOGIN</button>
+                    <button class="btn btn-newAccount"><a href="register.php">Create an Account</a></button> 
                 </div>
             </form>
         </div>
