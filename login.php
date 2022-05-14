@@ -63,7 +63,7 @@
 <body>
     <div class="login-wrap">
         <div class="login-form">
-            <h3>WELCOME TO OUR WEBSITE</h3>
+            <h3>WELCOME TO REJ Airline</h3>
             <form action="" method="POST">
                 <label for="username">USERNAME</label>
                 <input type="text" name="username" placeholder="YOUR USERNAME" value="<?php echo specialChars($uname); ?>"><br/>
