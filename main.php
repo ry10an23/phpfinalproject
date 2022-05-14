@@ -2,6 +2,13 @@
     session_start();
     include('config.php');
 
+    // GO BACK TO LOGIN PAGE WITHOUT USERNAME
+    if (isset($_SESSION['UserName'])){
+        $loginUserName = $_SESSION['UserName'];
+    } else {
+        header('Location: ./login.php');
+    }
+
      // PRICE CHANGE FUNCTION
      function specialChars($value) {
         return htmlspecialchars($value, ENT_QUOTES);
@@ -30,18 +37,15 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./style/register.css">
-    <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
-    <PHP>
-        <link rel="stylesheet" type="text/css" href="./style/main.css">
-</head>
-<PHP>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css"href="./style/register.css">
+    <link rel="stylesheet" href="./style/main.css">
     <title>MAIN PAGE</title>
 </head>
 
@@ -133,18 +137,16 @@
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
             //FIND bookingId
-            if(isset($loginUserName)){
-                $bookingInfoId = $db_travel->query("SELECT * FROM users_tb WHERE UserName = '$loginUserName'") or die($db_travel->mysql_error);
+            $select_booking_Id = "SELECT * FROM users_tb WHERE UserName = '$loginUserName'";
+            $bookingInfoId = $db_travel->query($select_booking_Id) or die($db_travel->mysql_error);
 
-                $selected_bookID = $bookingInfoId->fetch_array(MYSQLI_ASSOC);
-                $find_bookingId = $selected_bookID['bookingId'];
+            $selected_bookID = $bookingInfoId->fetch_array(MYSQLI_ASSOC);
+            $find_bookingId = $selected_bookID['bookingId'];
 
-                // IF the user have booking info,
-                if(isset($find_bookingId)){
-                    echo "You've already made a reservation.<br/>";
-                }
+            // IF the user have booking info,
+            if(isset($find_bookingId)){
+                echo "You've already made a reservation.<br/>";
             }
-
 
             //FIND flight ticket
             if(isset($_POST['arrival'])){
@@ -220,15 +222,21 @@
                 $ticket = $db_travel->query($decrease_ticketQuery);
 
                 //Insert booking infomation to bookinfInfo_tb
-                $book_ticketQuery = "INSERT INTO bookingInfo_tb 
+                $book_ticketQuery = "INSERT INTO bookinginfo_tb 
                 (username,country, people_num, season, price)
                 VALUES('$username', '$arrival', '$person', '$date','$finalPrice2')";
                 $book = $db_travel->query($book_ticketQuery);
 
-                echo "Your Flight to $arrival for $person person's booking sucessfully<br/>";
-            
+                echo "<h2>Your Flight to $arrival for $person person's booking sucessfully</h2><br/>";
+                
+
+                //Insert bookingId INTO user_tb Booking_info
+                $selectId_query = "SELECT * FROM users_tb";
+                $userID = $db_travel->query($selectId_query) or die($db_travel->mysql_error);
+
+
                 // Find Book_ID
-                $select_bookingId = "SELECT MAX(bookingId) AS bookID FROM bookingInfo_tb";
+                $select_bookingId = "SELECT MAX(bookingId) AS bookID FROM bookinginfo_tb";
                 $booking_ID = $db_travel->query($select_bookingId) or die($db_travel->mysql_error);
                 $bookID = $booking_ID->fetch_array(MYSQLI_ASSOC);
                 $Book_ID = $bookID['bookID'];
@@ -243,11 +251,13 @@
                 $insert_bookingId= "UPDATE users_tb SET bookingId = $Book_ID WHERE UserName = '$username'";
                 $bookInfotoUser = $db_travel->query($insert_bookingId) or die($db_travel->mysql_error);
 
+
                 //call quratnine function
                 if($arrival == 'Newyork'){
                     echo '<script> qurantine(); </script>';
                 }
             }
+            
             $db_travel->close();
         }
     ?>
@@ -263,4 +273,5 @@
         );
     }    
 </script>
+
 </html>
