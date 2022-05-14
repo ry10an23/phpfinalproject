@@ -222,7 +222,7 @@
                 $ticket = $db_travel->query($decrease_ticketQuery);
 
                 //Insert booking infomation to bookinfInfo_tb
-                $book_ticketQuery = "INSERT INTO bookinginfo_tb 
+                $book_ticketQuery = "INSERT INTO bookingInfo_tb 
                 (username,country, people_num, season, price)
                 VALUES('$username', '$arrival', '$person', '$date','$finalPrice2')";
                 $book = $db_travel->query($book_ticketQuery);
@@ -236,7 +236,7 @@
 
 
                 // Find Book_ID
-                $select_bookingId = "SELECT MAX(bookingId) AS bookID FROM bookinginfo_tb";
+                $select_bookingId = "SELECT MAX(bookingId) AS bookID FROM bookingInfo_tb";
                 $booking_ID = $db_travel->query($select_bookingId) or die($db_travel->mysql_error);
                 $bookID = $booking_ID->fetch_array(MYSQLI_ASSOC);
                 $Book_ID = $bookID['bookID'];
