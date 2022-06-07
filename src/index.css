@@ -1,0 +1,208 @@
+*{
+  list-style: none;
+  text-decoration: none;
+  border-collapse: collapse;
+  margin:0px;
+  padding: 0px;
+  color: #000;
+}
+
+body {
+  font-family: 'PT Serif', serif;
+}
+
+
+.result{
+  font-size: 24px;
+}
+
+.intro_bg{
+  background-image: url("../image/intro1.png");
+   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; 
+  width: 100%;
+  height: 714px;
+}
+
+.header{
+  width:100%;
+  display:flex;
+  justify-content: flex-end;
+  height: 86px;
+}
+
+.nav{
+  display: flex;
+  justify-content: flex-end;
+  width:calc(1280px - 300px);
+  line-height: 86px;
+  margin-right: 4%;
+}
+.nav > li {
+  margin-left:84px;
+}
+
+.nav > li > a {
+  color: #fff;
+}
+
+
+.intro_text{
+  width:100%;
+  margin:231px auto 231px auto;
+  text-align: center;
+}
+.intro_text > h1,
+.intro_text > h4{
+  color:#fff;
+}
+
+.reservation{
+  position: relative;
+  top:-66px;
+  display: flex;
+  width:1280px;
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  padding: 4%;
+}
+.reservation > li {
+  flex: 1;
+  height: 132px;
+  margin-right: 4%;
+}
+
+.reservation > li > h3 {
+    text-align: center;
+    font-size: 30px;
+}
+.reservation > li > select {
+  text-align: center;
+  margin-top:37px;
+  width: 100%;
+  height:57px;
+}
+
+.reservation > li:not(:last-child) > select{
+  border-right:1px solid #E1E1E1;
+  font-size:25px;
+}
+.buttonContainer{
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+ul > li >.button {
+background-color: tomato;
+outline: none;
+border: none;
+width: 100px;
+height: 100px;
+color: #E1E1E1;
+border-radius: 40px;
+font-size: 20px;
+cursor: pointer;
+line-height: 40px;
+margin-top: 20px;
+}
+
+.container {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.showResult,.suggestion{
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 290px;
+background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+padding: 40px; 
+font-size: 30px;
+margin: 40px;
+margin-top: 0;
+margin-left: 100px;
+margin-right: 100px;
+text-align: center;
+border-radius:3px;
+transform-origin:20% 20%;
+transform:rotate(3deg);
+box-shadow:3px 3px 0px -1px #F00;
+width: 600px;
+
+}
+
+.showResult h2 ,.message{
+ margin-bottom: 30px;
+ color: white;
+}
+
+.showCountry,.country{
+color: white;
+font-size: 25px;
+margin-bottom: 30px;
+}
+
+.departure{
+ font-size: 30px;
+ color: rgb(186, 186, 64);
+}
+
+.arrival {
+ font-size: 30px;
+ color: tomato;
+}
+
+.price {
+color:orange;
+ font-size: 30px;
+
+}
+
+.numOfprice{
+ color: white;
+}
+
+.countryword{
+ color:darkred;
+ background-color: white;
+ border-radius: 50%;
+ background-color: orange;
+display: inline-block;
+width: 100px;
+height: 100px;
+ border: 1px solid white;
+ line-height: 100px;
+ font-weight: 500;
+}
+
+.suggestionMessage{
+ color: white;
+}
+
+.saveBtn,.bookBtn {
+outline: 0;
+border: 0;
+background-color: orangered;
+width: 100px;
+height: 40px;
+font-size: 20px;
+color: wheat;
+border-radius: 8px;
+margin-left: 5%;
+margin-bottom: 1%;
+display: inline;
+cursor: pointer;
+}
+
+.bookBtn{
+ height: 48px;
+}
+.saveBtn:hover,.bookBtn:hover {
+ opacity: 0.8;
+}
