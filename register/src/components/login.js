@@ -21,17 +21,20 @@ import { useNavigate } from 'react-router-dom';
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     
-
-    $.ajax({ // USERNAME
-        type: "POST",
-        url: 'http://localhost/php_finalproject/login.php?username=username&password=password',
-        success(data){
-            setUserName(data);
-        }
-        // useEffect = (()=>{
-        //     [username, password];
-        // });
-    })
+    const handleSubmit = (event) => {
+        const form = $(event.target);
+        $.ajax({ // USERNAME
+            type: "POST",
+            url: 'http://localhost/php_finalproject/login.php',
+            data: form.serialize(),
+            success(data){
+                setUserName(data);
+            }
+            // useEffect = (()=>{
+            //     [username, password];
+            // });
+        })
+    }
 
     function goToReg(){
         navigate("/register");
@@ -41,16 +44,16 @@ import { useNavigate } from 'react-router-dom';
         <>
             <div className="login-wrap">
                 <div className="login-form">
-                    <h3>WELCOME TO REJ Airline</h3>
-                    <form>
+                    {/* <h3>WELCOME TO REJ Airline</h3> */}
+                    <form action='http://localhost/php_finalproject/login.php' method='POST' onSubmit={(event)=>handleSubmit(event)}>
                         <label for="username">USERNAME</label>
                         <input type="text" name="username" placeholder="YOUR USERNAME" onChange={(e) => setUserName(e.target.value) } /><br/>
 
                         <label for="username">PASSWORD</label>
                         <input type="password" name="password" placeholder="YOUR PASSWORD" onChange={(e) => setPassword(e.target.value)} /><br/>
-                        <div class="button">
-                            <button type="submit" class="btn btn-login" name="login">LOGIN</button>
-                            <button class="btn btn-newAccount" onClick={goToReg}>Create an Account</button> 
+                        <div className="button">
+                            <button type="submit" className="btn btn-login" name="login">LOGIN</button>
+                            <button className="btn btn-newAccount" onClick={goToReg}>Create an Account</button> 
                         </div>
                     </form>
                 </div>
