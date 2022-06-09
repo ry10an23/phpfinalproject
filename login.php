@@ -1,11 +1,13 @@
 <?php
     session_start();
+    include "./config.php";
 
     //SHOW THE ERROR MESSAGE
     $error = [];
-    $uname =  $_POST["username"];
-    $password = $_POST["password"];
-    echo $uname;
+    // $uname =  filter_input(INPUT_POST, '');
+    // $password =  filter_input(INPUT_POST, '');
+    $uname = $_POST['username'];
+    $password = $_POST['password'];
     if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
         $uname = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -34,7 +36,7 @@
 
             if(password_verify($password, $hash)){ //COMPARE BETWEEN THE HASHED PASS AND PLAINTEXT PASSWORD ARE SAME OR NOT
                 $_SESSION['UserName'] = $uname;
-                header('Location: ./main.php');
+                header('Location: http://localhost/php_finalproject/main.php');
                 exit();
             } else {
                 $error['login'] = 'failed';
