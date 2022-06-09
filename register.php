@@ -65,7 +65,7 @@
         if(!$success){
             die($db_travel->error);
         }
-        header('Location: login.php');
+        header('Location: http://localhost:3000/');
     }
 ?>
 
